@@ -44,14 +44,12 @@ class Lesson(models.Model):
         verbose_name="Фото",
         help_text="Загрузите фото",
     )
-    video_link = models.CharField(max_length=200)
+    video_link = models.URLField(max_length=200)
     course = models.ForeignKey(
         Course,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        verbose_name="Курс",
-        help_text="Укажите курс",
+        on_delete=models.CASCADE,
+        related_name="курс",
+        verbose_name="курс"
     )
 
     def __str__(self):
