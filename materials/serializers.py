@@ -1,15 +1,21 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from materials.models import Course, Lesson
 
 
-class CourseSerializer(ModelSerializer):
+class CourseSerializer(serializers.ModelSerializer):
+    lesson_count = serializers.SerializerMethodField()
+
+    def get_lesson_count(self, obj):
+        """Получает объект курса obj и возвращает количество связанных уроков"""
+        return obj.lessons.count()  # Используем related_name 'lessons'
+
     class Meta:
         model = Course
-        fields = "__all__"  # указанные здесь поля будут возвращаться в postman
+        fields = ['name', 'lesson_count']  # указанные здесь поля будут возвращаться в postman
 
 
-class LessonSerializer(ModelSerializer):
+class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = "__all__"
