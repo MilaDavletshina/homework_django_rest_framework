@@ -44,7 +44,7 @@ class Lesson(models.Model):
         verbose_name="Фото",
         help_text="Загрузите фото",
     )
-    video_link = models.URLField(max_length=200)
+    video_link = models.URLField(max_length=200, blank=True, null=True)
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
