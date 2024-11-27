@@ -23,4 +23,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['name', 'lesson_count']  # указанные здесь поля будут возвращаться в postman
+        fields = [
+            "name",
+            "lesson_count",
+        ]  # указанные здесь поля будут возвращаться в postman

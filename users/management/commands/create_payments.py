@@ -1,12 +1,14 @@
-from django.core.management.base import BaseCommand
-from users.models import Payments
 from django.contrib.auth.models import User
+from django.core.management.base import BaseCommand
+
 from materials.models import Course, Lesson
+from users.models import Payments
 
 
 class Command(BaseCommand):
     """Кастомная команда для создания платежей"""
-    help = 'Create sample payments'
+
+    help = "Create sample payments"
 
     def handle(self, *args, **kwargs):
         user1 = User.objects.get(id=1)
@@ -18,7 +20,7 @@ class Command(BaseCommand):
             paid_course=course1,
             paid_lesson=lesson1,
             payment_amount=1000.00,
-            payment_method='CASH'
+            payment_method="CASH",
         )
 
-        self.stdout.write(self.style.SUCCESS('Successfully created payment records'))
+        self.stdout.write(self.style.SUCCESS("Successfully created payment records"))
