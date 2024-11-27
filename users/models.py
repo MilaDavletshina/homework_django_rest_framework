@@ -70,7 +70,7 @@ class Payments(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id} by {self.user.username}"
+        return f"Payment by {self.user} for {self.paid_course or self.paid_lesson}"
 
     class Meta:
         verbose_name = "Платеж"
