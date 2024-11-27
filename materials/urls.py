@@ -7,7 +7,7 @@ from materials.views import (CourseViewSet, LessonCreateAPIView,
                              LessonRetrieveAPIView, LessonUpdateAPIView)
 from users.views import PaymentsViewSet, UserViewSet
 
-app_name = MaterialsConfig
+app_name = MaterialsConfig.name
 
 router = SimpleRouter()
 router.register("", CourseViewSet)
