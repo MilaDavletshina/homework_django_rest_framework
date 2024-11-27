@@ -48,7 +48,7 @@ class Payments(models.Model):
         ('TRANSFER', 'Перевод на счет'),
     ]
 
-    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="payments",verbose_name="пользователь")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="payments", verbose_name="пользователь")
     payment_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата оплаты")
     paid_course = models.ForeignKey(Course, null=True, blank=True, on_delete=models.CASCADE)  # Связь с курсом
     paid_lesson = models.ForeignKey(Lesson, null=True, blank=True, on_delete=models.CASCADE)  # Связь с уроком
@@ -56,4 +56,8 @@ class Payments(models.Model):
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHOD_CHOICES, verbose_name="Способ оплаты")
 
     def __str__(self):
-        return f'{self.user} - {self.amount} - {self.payment_date}'
+        return f'{self.id} by {self.user.username}'
+
+    class Meta:
+        verbose_name = "Платеж"
+        verbose_name_plural = "Платежи"
