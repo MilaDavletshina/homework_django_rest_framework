@@ -1,12 +1,16 @@
-from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView, RetrieveAPIView,
-                                     UpdateAPIView)
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from materials.models import Course, Lesson
 from materials.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModer, IsOwner
-from rest_framework.permissions import IsAuthenticated
 
 
 class CourseViewSet(ModelViewSet):
@@ -49,7 +53,7 @@ class LessonRetrieveAPIView(RetrieveAPIView):
 class LessonUpdateAPIView(UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated, IsModer| IsOwner]
+    permission_classes = [IsAuthenticated, IsModer | IsOwner]
 
 
 class LessonDestroyAPIView(DestroyAPIView):

@@ -11,7 +11,9 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     lesson_count = serializers.SerializerMethodField()
-    lessons = LessonSerializer(many=True, read_only=True) #Выдает и количество уроков курса и информацию по всем урокам курса одновременно
+    lessons = LessonSerializer(
+        many=True, read_only=True
+    )  # Выдает и количество уроков курса и информацию по всем урокам курса одновременно
 
     def get_lesson_count(self, obj):
         """Получает объект курса obj и возвращает количество связанных уроков"""
