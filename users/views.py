@@ -4,9 +4,16 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import Payments, User
 from users.serializers import PaymentsSerializer, UserSerializer
+from rest_framework.generics import CreateAPIView
 
 
 class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserCreateAPIView(CreateAPIView):
+    """CRUD для регистрации пользователя."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
