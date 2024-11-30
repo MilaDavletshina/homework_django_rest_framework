@@ -5,6 +5,7 @@ from rest_framework.viewsets import ModelViewSet
 from users.models import Payments, User
 from users.serializers import PaymentsSerializer, UserSerializer
 from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import AllowAny
 
 
 class UserViewSet(ModelViewSet):
@@ -16,6 +17,7 @@ class UserCreateAPIView(CreateAPIView):
     """CRUD для регистрации пользователя."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (AllowAny,)
 
     def perform_create(self, serializer):
         user = serializer.save(is_active=True)
