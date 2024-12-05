@@ -25,7 +25,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_is_subscription(self, obj):
         """Проверяет наличие подписки."""
-        user = self.context['request'].user
+        user = self.context["request"].user
         return Subscription.objects.filter(user=user, course=obj).exists()
 
     class Meta:

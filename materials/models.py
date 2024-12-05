@@ -75,6 +75,7 @@ class Lesson(models.Model):
 
 class Subscription(models.Model):
     """Подписка на обновления курса для пользователя."""
+
     user = models.ForeignKey(
         AUTH_USER_MODEL,
         verbose_name="Владелец",
@@ -82,9 +83,7 @@ class Subscription(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
-    course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, verbose_name="курс"
-    )
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="курс")
 
     class Meta:
         verbose_name = "Подписка"

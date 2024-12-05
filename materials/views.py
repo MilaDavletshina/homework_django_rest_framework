@@ -13,10 +13,9 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from materials.models import Course, Lesson, Subscription
+from materials.paginations import CustomPagination
 from materials.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModer, IsOwner
-
-from materials.paginations import CustomPagination
 
 
 class CourseViewSet(ModelViewSet):
@@ -74,9 +73,11 @@ class SubscriptionView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        user = request.user # получаем пользователя
-        course_id = request.data.get("course_id") # получаем id курса
-        course_item = get_object_or_404(Course, id=course_id) # получаем объект курса из базы
+        user = request.user  # получаем пользователя
+        course_id = request.data.get("course_id")  # получаем id курса
+        course_item = get_object_or_404(
+            Course, id=course_id
+        )  # получаем объект курса из базы
 
         # получаем объекты подписок по текущему пользователю и курса
         subs_item = Subscription.objects.filter(user=user, course=course_item)
@@ -84,12 +85,12 @@ class SubscriptionView(APIView):
         # Если подписка у пользователя на этот курс есть - удаляем ее
         if subs_item.exists():
             subs_item.delete()
-            message = 'подписка удалена'
+            message = "подписка удалена"
 
         # Если подписки у пользователя на этот курс нет - создаем ее
         else:
             Subscription.objects.create(user=user, course=course_item)
-            message = 'подписка добавлена'
+            message = "подписка добавлена"
 
         # Возвращаем ответ в API
         return Response({"message": message}, status=status.HTTP_200_OK)
