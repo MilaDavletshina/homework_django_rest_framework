@@ -10,22 +10,22 @@ class CourseTestCase(APITestCase):
     """Тестирование курса."""
 
     def setUp(self):
-        """Прописываем фикстуру. Перед каждым запуском будет запускаться этот метод"""
+        """Прописываем тестовые данные курса."""
         self.user = User.objects.create(
             email="admin@example.com"
-        )  # создаем тестового пользователя
+        )
         self.course = Course.objects.create(
             name="Тестовый курс", description="Тестовое описание курса", owner=self.user
-        )  # тестовый урок
+        )
         self.lesson = Lesson.objects.create(
             title="Тестовый урок",
             description="Тестовое описание урока",
             course=self.course,
             owner=self.user,
-        )  # тестовый курс
+        )
         self.client.force_authenticate(
             user=self.user
-        )  # для авторизации тестового пользователя
+        )
 
     def test_course_retrieve(self):  # OK
         url = reverse("materials:course-detail", args=(self.course.pk,))
@@ -40,23 +40,23 @@ class LessonTestCase(APITestCase):
     """Тестирование урока."""
 
     def setUp(self):
-        """Прописываем фикстуру. Перед каждым запуском будет запускаться этот метод"""
+        """Прописываем тестовые данные урока."""
         self.user = User.objects.create(
             email="admin@example.com"
-        )  # создаем тестового пользователя
+        )
         self.course = Course.objects.create(
             name="Тестовый курс", description="Тестовое описание курса", owner=self.user
-        )  # тестовый урок
+        )
         self.lesson = Lesson.objects.create(
             title="Тестовый урок",
             description="Тестовое описание урока",
             video_link="https://youtube.com/test",
             course=self.course,
             owner=self.user,
-        )  # тестовый курс
+        )
         self.client.force_authenticate(
             user=self.user
-        )  # для авторизации тестового пользователя
+        )
 
     def test_lesson_retrieve(self):  # OK
         url = reverse("materials:lessons_retrieve", args=(self.lesson.pk,))
