@@ -28,6 +28,7 @@ class CourseTestCase(APITestCase):
         )
 
     def test_course_retrieve(self):  # OK
+        """Тест на получение курса."""
         url = reverse("materials:course-detail", args=(self.course.pk,))
         response = self.client.get(url)
         # print(response.json())
@@ -59,6 +60,7 @@ class LessonTestCase(APITestCase):
         )
 
     def test_lesson_retrieve(self):  # OK
+        """Тест на получение урока."""
         url = reverse("materials:lessons_retrieve", args=(self.lesson.pk,))
         response = self.client.get(url)
         # print(response.json())
@@ -67,6 +69,7 @@ class LessonTestCase(APITestCase):
         self.assertEqual(data.get("title"), self.lesson.title)
 
     def test_lesson_create(self):  # NOK
+        """Тест на создание урока."""
         url = reverse("materials:lessons_create")
         data = {
             "title": "newtest",
@@ -81,6 +84,7 @@ class LessonTestCase(APITestCase):
         self.assertTrue(Lesson.objects.filter(title="newtest").exists())
 
     def test_lesson_update(self):  # OK
+        """Тест на обновление урока."""
         url = reverse("materials:lessons_update", args=(self.lesson.pk,))
         data = {"title": "update test"}
         response = self.client.patch(url, data)
@@ -90,6 +94,7 @@ class LessonTestCase(APITestCase):
         self.assertEqual(data.get("title"), "update test")
 
     def test_lesson_delete(self):  # OK
+        """Тест на удаление урока."""
         url = reverse("materials:lessons_delete", args=(self.lesson.pk,))
         response = self.client.delete(url)
         print(response)
@@ -97,6 +102,7 @@ class LessonTestCase(APITestCase):
         self.assertEqual(Lesson.objects.all().count(), 0)
 
     def test_subscription(self):  # OK
+        """Тест на получение подписки."""
         url = reverse("materials:subscribe")  # Замените на Ваш URL
         data = {"course_id": self.course.pk}
 
@@ -113,6 +119,7 @@ class LessonTestCase(APITestCase):
         self.assertEqual(response.data["message"], "подписка удалена")
 
     def test_lesson_list(self):  # OK
+        """Тест на просмотр урока."""
         url = reverse("materials:lessons_list")
 
         response = self.client.get(url)

@@ -5,11 +5,13 @@ from users.models import Payments, User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
+    """Админка пользователя."""
     list_display = ("id", "email", "first_name", "last_name", "phone", "city", "avatar")
 
 
 @admin.register(Payments)
 class PaymentsAdmin(admin.ModelAdmin):
+    """Админка оплаты курса."""
     list_display = (
         "id",
         "user",

@@ -5,6 +5,7 @@ from materials.models import Course, Lesson
 
 
 class User(AbstractUser):
+    """Модель пользователя."""
     username = None
     email = models.EmailField(
         unique=True, verbose_name="Почта", help_text="Укажите почту"
@@ -42,7 +43,7 @@ class User(AbstractUser):
 
 
 class Payments(models.Model):
-    """Платежи"""
+    """Модель платежи"""
 
     PAYMENT_METHOD_CHOICES = [
         ("CASH", "Наличные"),

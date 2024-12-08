@@ -19,6 +19,7 @@ from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(ModelViewSet):
+    """Course ViewSet."""
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     pagination_class = CustomPagination
@@ -35,6 +36,7 @@ class CourseViewSet(ModelViewSet):
 
 
 class LessonCreateAPIView(CreateAPIView):
+    """Lesson Create."""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, ~IsModer]
@@ -46,30 +48,35 @@ class LessonCreateAPIView(CreateAPIView):
 
 
 class LessonListAPIView(ListAPIView):
+    """Lesson List."""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     pagination_class = CustomPagination
 
 
 class LessonRetrieveAPIView(RetrieveAPIView):
+    """Lesson Retrieve."""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, IsModer | IsOwner]
 
 
 class LessonUpdateAPIView(UpdateAPIView):
+    """Lesson Update."""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, IsModer | IsOwner]
 
 
 class LessonDestroyAPIView(DestroyAPIView):
+    """Lesson Destroy."""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, ~IsModer | IsOwner]
 
 
 class SubscriptionView(APIView):
+    """Subscription View."""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):

@@ -9,6 +9,7 @@ from users.serializers import PaymentsSerializer, UserSerializer
 
 
 class UserViewSet(ModelViewSet):
+    """User View."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -27,6 +28,7 @@ class UserCreateAPIView(CreateAPIView):
 
 
 class PaymentsViewSet(ModelViewSet):
+    """Payments View."""
     queryset = Payments.objects.all()
     serializer_class = PaymentsSerializer
 
