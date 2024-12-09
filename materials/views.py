@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import (
     CreateAPIView,
@@ -18,6 +20,9 @@ from materials.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModer, IsOwner
 
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="Course ViewSet"
+))
 class CourseViewSet(ModelViewSet):
     """Course ViewSet."""
     queryset = Course.objects.all()
