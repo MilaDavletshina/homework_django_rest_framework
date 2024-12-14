@@ -142,3 +142,10 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+CELERY_BEAT_SCHEDULE = {
+    "blocking_user": {
+        "task": "materials.tasks.blocking_user",
+        "schedule": timedelta(days=1),
+    },
+}
