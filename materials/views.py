@@ -17,8 +17,10 @@ from rest_framework.viewsets import ModelViewSet
 from materials.models import Course, Lesson, Subscription
 from materials.paginations import CustomPagination
 from materials.serializers import CourseSerializer, LessonSerializer
+from materials.tasks import send_information_about_course_update
 from users.permissions import IsModer, IsOwner
 
+from rest_framework.decorators import action
 
 @method_decorator(name='list', decorator=swagger_auto_schema(
     operation_description="Course ViewSet"
@@ -38,6 +40,11 @@ class CourseViewSet(ModelViewSet):
         elif self.action == "destroy":
             self.permission_classes = (~IsModer | IsOwner,)
         return super().get_permissions()
+
+    def perfom_update(self, serializer):
+        """Dызов задачи на отправку сообщения об обновлении курса"""
+        course = serializer.save()
+        send_information_about_course_update.delay(course.id)
 
 
 class LessonCreateAPIView(CreateAPIView):
@@ -106,3 +113,5 @@ class SubscriptionView(APIView):
 
         # Возвращаем ответ в API
         return Response({"message": message}, status=status.HTTP_200_OK)
+
+
