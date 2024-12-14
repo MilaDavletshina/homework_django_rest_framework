@@ -7,5 +7,3 @@ def validate_video_url(value):
         raise ValidationError(
             "Cсылки на сторонние образовательные платформы или личные сайты — запрещены!"
         )
-
-

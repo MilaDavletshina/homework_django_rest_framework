@@ -23,13 +23,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "rest_framework",
     "django_filters",
     "rest_framework_simplejwt",
     "drf_yasg",
     "django_celery_beat",
-
     "users",
     "materials",
 ]
@@ -141,8 +139,9 @@ MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
+# запуск задачи по расписанию через celery beat
 CELERY_BEAT_SCHEDULE = {
     "blocking_user": {
         "task": "materials.tasks.blocking_user",

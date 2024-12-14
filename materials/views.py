@@ -2,13 +2,10 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
-from rest_framework.generics import (
-    CreateAPIView,
-    DestroyAPIView,
-    ListAPIView,
-    RetrieveAPIView,
-    UpdateAPIView,
-)
+from rest_framework.decorators import action
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,13 +17,13 @@ from materials.serializers import CourseSerializer, LessonSerializer
 from materials.tasks import send_information_about_course_update
 from users.permissions import IsModer, IsOwner
 
-from rest_framework.decorators import action
 
-@method_decorator(name='list', decorator=swagger_auto_schema(
-    operation_description="Course ViewSet"
-))
+@method_decorator(
+    name="list", decorator=swagger_auto_schema(operation_description="Course ViewSet")
+)
 class CourseViewSet(ModelViewSet):
     """Course ViewSet."""
+
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     pagination_class = CustomPagination
@@ -49,6 +46,7 @@ class CourseViewSet(ModelViewSet):
 
 class LessonCreateAPIView(CreateAPIView):
     """Lesson Create."""
+
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, ~IsModer]
@@ -61,6 +59,7 @@ class LessonCreateAPIView(CreateAPIView):
 
 class LessonListAPIView(ListAPIView):
     """Lesson List."""
+
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     pagination_class = CustomPagination
@@ -68,6 +67,7 @@ class LessonListAPIView(ListAPIView):
 
 class LessonRetrieveAPIView(RetrieveAPIView):
     """Lesson Retrieve."""
+
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, IsModer | IsOwner]
@@ -75,6 +75,7 @@ class LessonRetrieveAPIView(RetrieveAPIView):
 
 class LessonUpdateAPIView(UpdateAPIView):
     """Lesson Update."""
+
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, IsModer | IsOwner]
@@ -82,6 +83,7 @@ class LessonUpdateAPIView(UpdateAPIView):
 
 class LessonDestroyAPIView(DestroyAPIView):
     """Lesson Destroy."""
+
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, ~IsModer | IsOwner]
@@ -89,6 +91,7 @@ class LessonDestroyAPIView(DestroyAPIView):
 
 class SubscriptionView(APIView):
     """Subscription View."""
+
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
@@ -113,5 +116,3 @@ class SubscriptionView(APIView):
 
         # Возвращаем ответ в API
         return Response({"message": message}, status=status.HTTP_200_OK)
-
-

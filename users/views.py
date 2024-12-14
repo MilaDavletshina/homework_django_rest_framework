@@ -8,11 +8,13 @@ from rest_framework.viewsets import ModelViewSet
 from materials.models import Course
 from users.models import Payments, User
 from users.serializers import PaymentsSerializer, UserSerializer
-from users.services import create_stripe_price, create_stripe_product, create_stripe_sessions
+from users.services import (create_stripe_price, create_stripe_product,
+                            create_stripe_sessions)
 
 
 class UserViewSet(ModelViewSet):
     """User View."""
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -32,6 +34,7 @@ class UserCreateAPIView(CreateAPIView):
 
 class PaymentsViewSet(ModelViewSet):
     """Payments View."""
+
     queryset = Payments.objects.all()
     serializer_class = PaymentsSerializer
 
@@ -52,8 +55,8 @@ class PaymentCreateAPIView(CreateAPIView):
     serializer_class = PaymentsSerializer
 
     def post(self, request):
-        course_id = request.data.get('course_id')
-        amount = request.data.get('amount')
+        course_id = request.data.get("course_id")
+        amount = request.data.get("amount")
         course = Course.objects.get(id=course_id)
 
         product = create_stripe_product(course)
@@ -61,4 +64,7 @@ class PaymentCreateAPIView(CreateAPIView):
 
         session_id, payment_link = create_stripe_sessions(price)
 
-        return Response({"session_id": session_id, "payment_Link": payment_link}, status=status.HTTP_201_CREATED)
+        return Response(
+            {"session_id": session_id, "payment_Link": payment_link},
+            status=status.HTTP_201_CREATED,
+        )

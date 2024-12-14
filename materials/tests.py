@@ -11,9 +11,7 @@ class CourseTestCase(APITestCase):
 
     def setUp(self):
         """Прописываем тестовые данные курса."""
-        self.user = User.objects.create(
-            email="admin@example.com"
-        )
+        self.user = User.objects.create(email="admin@example.com")
         self.course = Course.objects.create(
             name="Тестовый курс", description="Тестовое описание курса", owner=self.user
         )
@@ -23,9 +21,7 @@ class CourseTestCase(APITestCase):
             course=self.course,
             owner=self.user,
         )
-        self.client.force_authenticate(
-            user=self.user
-        )
+        self.client.force_authenticate(user=self.user)
 
     def test_course_retrieve(self):  # OK
         """Тест на получение курса."""
@@ -42,9 +38,7 @@ class LessonTestCase(APITestCase):
 
     def setUp(self):
         """Прописываем тестовые данные урока."""
-        self.user = User.objects.create(
-            email="admin@example.com"
-        )
+        self.user = User.objects.create(email="admin@example.com")
         self.course = Course.objects.create(
             name="Тестовый курс", description="Тестовое описание курса", owner=self.user
         )
@@ -55,9 +49,7 @@ class LessonTestCase(APITestCase):
             course=self.course,
             owner=self.user,
         )
-        self.client.force_authenticate(
-            user=self.user
-        )
+        self.client.force_authenticate(user=self.user)
 
     def test_lesson_retrieve(self):  # OK
         """Тест на получение урока."""

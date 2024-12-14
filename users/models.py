@@ -6,6 +6,7 @@ from materials.models import Course, Lesson
 
 class User(AbstractUser):
     """Модель пользователя."""
+
     username = None
     email = models.EmailField(
         unique=True, verbose_name="Почта", help_text="Укажите почту"
@@ -74,7 +75,8 @@ class Payments(models.Model):
         blank=True,
         null=True,
         verbose_name="ID сессии",
-        help_text="Укажите ID сессии", )
+        help_text="Укажите ID сессии",
+    )
     link = models.URLField(
         max_length=400,
         blank=True,

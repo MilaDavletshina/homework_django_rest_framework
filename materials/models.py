@@ -5,6 +5,7 @@ from config.settings import AUTH_USER_MODEL
 
 class Course(models.Model):
     """Модель курса."""
+
     name = models.CharField(
         max_length=100, verbose_name="Название курса", help_text="Укажите курс"
     )
@@ -39,6 +40,7 @@ class Course(models.Model):
 
 class Lesson(models.Model):
     """Модель урока."""
+
     title = models.CharField(
         max_length=100, verbose_name="Название урока", help_text="Укажите урок"
     )

@@ -6,6 +6,7 @@ from materials.validators import validate_video_url
 
 class LessonSerializer(serializers.ModelSerializer):
     """Сериализатор урока."""
+
     video_link = serializers.URLField(validators=[validate_video_url])
 
     class Meta:
@@ -15,6 +16,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     """Сериализатор курса."""
+
     lesson_count = serializers.SerializerMethodField()
     lessons = LessonSerializer(
         many=True, read_only=True
