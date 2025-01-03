@@ -90,3 +90,10 @@ https://stripe.com/docs/api/checkout/sessions/create — создание сес
 last_login и, если пользователь не заходил более месяца, блокировать его с помощью флага is_active.
 Задачу сделайте периодической и запланируйте расписание в настройках celery-beat.
 Обратите внимание на timezone вашего приложения и timezone в настройках celery: важно, чтобы они были одинаковыми, чтобы задачи запускались в корректное время.
+
+##   Урок 34: Docker
+### Задание:
+1. Опишите Dockerfile для запуска контейнера с проектом.
+2. Оберните в Docker Compose Django-проект с БД PostgreSQL.
+3. Допишите в docker-compose.yaml работу с Redis.
+4. Допишите в docker-compose.yaml работу с Celery.
