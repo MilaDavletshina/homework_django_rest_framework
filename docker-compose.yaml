@@ -7,6 +7,8 @@ services:
     restart: on-failure
     expose:
       - "6379"
+    networks:
+      - my_network
 
   db:
     image: postgres:16-alpine
@@ -18,10 +20,12 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "c", "pg-isready -U $POSTGRES_USER"]
+      test: ["CMD-SHELL", "pg-isready -h db -U $POSTGRES_USER"]
       interval: 10s
       retries: 5
       timeout: 5s
+    networks:
+      - my_network
 
   app:
     build: .
@@ -29,13 +33,12 @@ services:
     ports:
       - "8000:8000"
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-    depends_on:
-      db:
-        condition: service_healthy
     volumes:
       - .:/app
     env_file:
       - .env
+    networks:
+      - my_network
 
   celery:
     build: .
@@ -50,6 +53,8 @@ services:
       - app
     env_file:
       - .env
+    networks:
+      - my_network
 
   celery-beat:
     build: .
@@ -64,6 +69,12 @@ services:
       - app
     env_file:
       - .env
+    networks:
+      - my_network
 
 volumes:
   pg_data:
+
+networks:
+  my_network:
+    driver: bridge
