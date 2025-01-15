@@ -141,6 +141,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_BROKER_CONNECTION_RETRY = True
 
 # запуск задачи по расписанию через celery beat
 CELERY_BEAT_SCHEDULE = {
