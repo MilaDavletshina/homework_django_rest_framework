@@ -2,11 +2,13 @@ from django.urls import path
 from rest_framework.routers import SimpleRouter
 
 from materials.apps import MaterialsConfig
-from users.views import (CourseViewSet, LessonCreateAPIView,
-                         LessonDestroyAPIView, LessonListAPIView,
-                         LessonRetrieveAPIView, LessonUpdateAPIView)
+from materials.views import (CourseViewSet, LessonCreateAPIView,
+                             LessonDestroyAPIView, LessonListAPIView,
+                             LessonRetrieveAPIView, LessonUpdateAPIView,
+                             SubscriptionView)
+from users.views import PaymentsViewSet, UserViewSet
 
-app_name = MaterialsConfig
+app_name = MaterialsConfig.name
 
 router = SimpleRouter()
 router.register("", CourseViewSet)
@@ -21,6 +23,7 @@ urlpatterns = [
     path(
         "lessons/<int:pk>/update", LessonUpdateAPIView.as_view(), name="lessons_update"
     ),
+    path("subscribe/", SubscriptionView.as_view(), name="subscribe"),
 ]
 
 urlpatterns += router.urls
